@@ -277,4 +277,12 @@ dark-mode .theme-toggle-floating {
   color: #fff;
 }
 
+.user-icon {
+  transition: transform 0.5s ease-in-out;
+}
+
+.user-icon:hover {
+  transform: scale(1.8); /* Enlarge on hover */
+  z-index: 10;
+}
 

@@ -2,7 +2,7 @@
 import './Main.css';
 import { assets } from '../../assets/assets';
 import React, { useState, useEffect } from 'react';
-import { URL } from '../../context/constants';
+import {  URL as API_URL  } from '../../context/constants';
 
 const Main = () => {
 const [input,setInput] =useState('');
@@ -11,7 +11,9 @@ const [prevPrompts,setPrevPrompts] =useState([]);
 const [showResult,setShowResult] =useState(false);
 const [loading,setLoading] =useState(false);
 const [resultData,setResultData] =useState(undefined);
+
 const [isDarkMode, setIsDarkMode] = useState(false);
+
 
 //them change light and dark
 const toggleTheme = () => {
@@ -25,6 +27,9 @@ const toggleTheme = () => {
       document.body.classList.remove('dark-mode');
     }
   }, [isDarkMode]);
+
+
+ 
 
 //speech
 const startListening = () => {
@@ -70,7 +75,7 @@ const askQuestion=async()=>{
   setRecentPrompt(input)
   setPrevPrompts(prev=>[...prev, input])
   
-  let response = await fetch (URL,{
+  let response = await fetch (API_URL,{
     method:"post",
     body:JSON.stringify(payload)
   })
@@ -107,8 +112,8 @@ return (
  <div className='main'>
         <div className="nav">
             <p>AmSmart</p>
-         <img src={assets.woman} alt="" />
-  </div>
+            <img src={assets.woman} alt="" className="user-icon" />
+        </div>
 
   <div className="main-cantainer">
           {!showResult
@@ -141,9 +146,10 @@ return (
             </>
            :<div className='result'>
                   <div className="result-title">
-                    <img src={assets.woman} alt="" />
+                  <img src={assets.woman} alt="" />
                     <p> {recentPrompt} </p>
                   </div>
+    
                   
                   <div className="result-data">
                      <img src={assets.smart1} alt="" />
@@ -159,19 +165,25 @@ return (
           
           }
             
-  <div className="main-bottom">
-            <div className="search-box">
-                <input type="text" value={input} placeholder='Enter a prompt here'onChange={(event)=>setInput(event.target.value)} />
-                <div>
-                    <img src={assets.gallery} alt="" />
-                    <img src={assets.mic} alt="" onClick={startListening} />
-                    <img src={assets.sent} alt="" onClick={askQuestion}  /> 
-                </div>
-            </div>
+         <div className="main-bottom">
+        <div className="search-box">
+  <div className="input-wrapper">
+  <input
+      type="text"
+      value={input}
+      placeholder={"Enter a prompt here"}
+      onChange={(event) => setInput(event.target.value)}
+    />
+  </div>
+  <div>
+    <img src={assets.gallery} alt=""  />
+    <img src={assets.mic} alt="" onClick={startListening} />
+    <img src={assets.sent} alt="" onClick={askQuestion} />
+  </div>
+</div>
             
 
-            <p className="bottom-info">AmSmart may display inaccurate info, including about people, so double- check its
-
+            <p className="bottom-info">AmSmart may display inaccurate info, including about people, so double- check its...
             </p>
           
            </div>
