@@ -11,12 +11,13 @@ const [prevPrompts,setPrevPrompts] =useState([]);
 const [showResult,setShowResult] =useState(false);
 const [loading,setLoading] =useState(false);
 const [resultData,setResultData] =useState(undefined);
-
 const [isDarkMode, setIsDarkMode] = useState(false);
+
+//them change light and dark
 const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
   };
-  // Apply/remove class on body
+  
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add('dark-mode');
@@ -25,7 +26,24 @@ const toggleTheme = () => {
     }
   }, [isDarkMode]);
 
+//speech
+const startListening = () => {
+  const recognition = new window.webkitSpeechRecognition(); // or SpeechRecognition
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.lang = 'en-IN'; // You can switch to 'hi-IN' for Hindi
 
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    setInput(transcript);
+  };
+
+  recognition.onerror = (event) => {
+    console.error("Speech recognition error:", event.error);
+  };
+
+  recognition.start();
+};
 
 
 const delayPara = (index, nextWord) => {
@@ -45,6 +63,7 @@ const payload={
       }
     ]
 }
+//on clicking main button
 const askQuestion=async()=>{
   setLoading(true)
   setShowResult(true)
@@ -80,20 +99,18 @@ const askQuestion=async()=>{
 
   setLoading(false)
   setInput("")
-  
+
+
 }
  
 return (
-
-      <div className='main'>
+ <div className='main'>
         <div className="nav">
             <p>AmSmart</p>
          <img src={assets.woman} alt="" />
-        </div>
+  </div>
 
-        
-
-        <div className="main-cantainer">
+  <div className="main-cantainer">
           {!showResult
           ?<>
           <div className="greed">
@@ -111,7 +128,7 @@ return (
                 <div className="card">
                     <p>Briefly summarize this consept:urban planning</p>
                     <img src={assets.bulb} alt="" />
-                </div>
+            </div>
                 <div className="card">
                     <p>Brainasatrom team boading activity for our work retreat</p>
                     <img src={assets.chatMessage} alt="" />
@@ -147,7 +164,7 @@ return (
                 <input type="text" value={input} placeholder='Enter a prompt here'onChange={(event)=>setInput(event.target.value)} />
                 <div>
                     <img src={assets.gallery} alt="" />
-                    <img src={assets.mic} alt="" />
+                    <img src={assets.mic} alt="" onClick={startListening} />
                     <img src={assets.sent} alt="" onClick={askQuestion}  /> 
                 </div>
             </div>

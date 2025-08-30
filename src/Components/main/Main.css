@@ -13,8 +13,10 @@
     justify-content: space-between;
     font-size: 22px;
     padding: 20px;
-    
-    color: #585858;
+    font-weight: bold;
+    background: -webkit-linear-gradient(16deg,#4b90ff,#ff5546);
+     -webkit-background-clip:text;
+    -webkit-text-fill-color: transparent;
 }
 .main .nav .img{
     width: 40px;
@@ -75,9 +77,9 @@
     background-color: #dfe4ea;
 }
 
-.main.bottom{
-    position: absolute;
-    bottom: 0;
+.main-bottom{
+   position: absolute;
+   bottom: 0;
     width: 100%;
     max-width: 900px;
     padding: 0px 20px;
@@ -89,9 +91,10 @@
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    background-color: #f0f4f9;
-    padding: 10px 20px;
+ background-color: #f0f4f9;
+    padding: 5px 10px;
     border-radius: 50px;
+    
 }
 .search-box img{
     width: 29px;
@@ -273,3 +276,5 @@ dark-mode .theme-toggle-floating {
   background: #333;
   color: #fff;
 }
+
+
