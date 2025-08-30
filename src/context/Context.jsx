@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import runChat from "../componets/sidebar/main/Main";
+import runChat from "../Componets/sidebar/main/Main";
 
 export const Context = createContext();
 
