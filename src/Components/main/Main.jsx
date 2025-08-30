@@ -1,9 +1,8 @@
 
 import './Main.css';
-import { assets } from '../../../assets/assets';
+import { assets } from '../../assets/assets';
 import React, { useState, useEffect } from 'react';
-
-import { URL } from '../../../constants';
+import { URL } from '../../context/constants';
 
 const Main = () => {
 const [input,setInput] =useState('');
