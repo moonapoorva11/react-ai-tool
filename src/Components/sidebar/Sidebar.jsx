@@ -2,23 +2,15 @@ import React, { useContext, useState } from 'react'
  import './Sidebar.css';
  import {assets} from '../../assets/assets.js'
 import { Context } from '../../context/Context.jsx';
-import Main from '../main/Main.jsx';
 
- 
-
-const sidebar = () => {
+ const sidebar = () => {
     const [extended,setExtended] = useState(false)
     const {prevPrompts, setPrevPrompts, recentPrompt, } = useContext(Context);
    // const {prevPrompts,recentPrompt,} = useContext(Context);
 
-
- const oldPromt=async()=>{  
-    setPrevPrompts(prev => [...prev, recentPrompt]);
-    }
-  return (
+ return (
     <div className='sidebar'>
-       
-        <div className='top'>
+       <div className='top'>
             <img onClick={()=>setExtended(prev=>!prev)} className ='menu' src={assets.menu} alt='' />
             <div className="newchat">
                 <img src= {assets.plus} alt=''/>
@@ -29,20 +21,22 @@ const sidebar = () => {
                 <p className= "recent-title" >Recent</p>
               {Array.isArray(prevPrompts) && prevPrompts.map((item, index) => (
                    <div className="recent-entry" key={index}>
-                   <img src={assets.chatMessage} alt=""    />
+                   <img src={assets.chatMessage} alt=""  />
                    <p>{item}...</p>
                  </div>
               ))}
-                
-           </div>
+              {recentPrompt && (
+              <div className="recent-entry highlight">
+                <img src={assets.chatMessage} alt="" />
+                <p><strong>Latest:</strong> {recentPrompt}</p>
+              </div>
+            )}
+         </div>
            :null
-}
-
-           
-        </div>
+            }
+            </div>
         
         <div className='bottom'>
-            
             <div className="bottom-item recent-entry">
                 <img src={assets.question} alt="" />
                {extended?<p>Help</p>:null} 

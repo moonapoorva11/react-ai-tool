@@ -71,6 +71,7 @@
 .main .card p{
     color: #585858;
     font-size: 17px;
+    
 }
 
 .main .card:hover{
@@ -84,6 +85,8 @@
     max-width: 900px;
     padding: 0px 20px;
     margin: auto;
+   
+     
 }
 
 .search-box{
@@ -91,14 +94,17 @@
     align-items: center;
     justify-content: space-between;
     gap: 20px;
- background-color: #f0f4f9;
+    background-color: #f5f7f9;
     padding: 5px 10px;
     border-radius: 50px;
+      
     
 }
 .search-box img{
     width: 29px;
  cursor: pointer;
+   
+
 }
 .search-box input{
     flex: 1;
@@ -106,6 +112,8 @@
     border: none;
     outline: none;
     font-size: 18px;
+ 
+  
 }
 .search-box div{
     display: flex;
@@ -148,16 +156,16 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-}
+    gap: 8px;
+ }
+
 .loader hr{
     border-radius: 4px;
     border: none;
     background-color: #f6f7f8;
     background: linear-gradient(to right, #9ed7ff, #ffffff, #9ed7ff);
     background-size: 800px 50px;
-    height: 20px;
-    animation: loader 3s infinite linear;
+    height: 40px;
 }
 
 @keyframes loader{
@@ -285,4 +293,5 @@ dark-mode .theme-toggle-floating {
   transform: scale(1.8); /* Enlarge on hover */
   z-index: 10;
 }
+
 

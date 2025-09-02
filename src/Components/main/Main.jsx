@@ -1,25 +1,23 @@
 
 import './Main.css';
 import { assets } from '../../assets/assets';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useContext } from 'react';
+import {Context} from '../../context/Context';
 import {  URL as API_URL  } from '../../context/constants';
 
 const Main = () => {
 const [input,setInput] =useState('');
-const [recentPrompt,setRecentPrompt] =useState("");
-const [prevPrompts,setPrevPrompts] =useState([]);
 const [showResult,setShowResult] =useState(false);
 const [loading,setLoading] =useState(false);
 const [resultData,setResultData] =useState(undefined);
-
 const [isDarkMode, setIsDarkMode] = useState(false);
 
+const {prevPrompts, setPrevPrompts, recentPrompt ,setRecentPrompt} =useContext(Context);
 
 //them change light and dark
 const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
   };
-  
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add('dark-mode');
@@ -27,10 +25,7 @@ const toggleTheme = () => {
       document.body.classList.remove('dark-mode');
     }
   }, [isDarkMode]);
-
-
  
-
 //speech
 const startListening = () => {
   const recognition = new window.webkitSpeechRecognition(); // or SpeechRecognition
@@ -46,16 +41,21 @@ const startListening = () => {
   recognition.onerror = (event) => {
     console.error("Speech recognition error:", event.error);
   };
-
-  recognition.start();
+recognition.start();
 };
-
 
 const delayPara = (index, nextWord) => {
   setTimeout(() => {
     setResultData(prev => prev + nextWord);
   }, 75 * index);
 };
+
+//on clicking main button
+const askQuestion=async()=>{
+  setLoading(true)
+  setShowResult(true)
+  setRecentPrompt(input)
+  setPrevPrompts(prev=>[...prev, input]);
 
 const payload={
     "contents": [
@@ -68,14 +68,7 @@ const payload={
       }
     ]
 }
-//on clicking main button
-const askQuestion=async()=>{
-  setLoading(true)
-  setShowResult(true)
-  setRecentPrompt(input)
-  setPrevPrompts(prev=>[...prev, input])
-  
-  let response = await fetch (API_URL,{
+let response = await fetch (API_URL,{
     method:"post",
     body:JSON.stringify(payload)
   })
@@ -102,11 +95,9 @@ const askQuestion=async()=>{
     delayPara(i,nextWord+" ")
   }
 
-  setLoading(false)
-  setInput("")
-
-
-}
+  setLoading(false);
+  setInput("");
+};
  
 return (
  <div className='main'>
@@ -114,8 +105,8 @@ return (
             <p>AmSmart</p>
             <img src={assets.woman} alt="" className="user-icon" />
         </div>
-
-  <div className="main-cantainer">
+      
+<div className="main-cantainer">
           {!showResult
           ?<>
           <div className="greed">
@@ -147,7 +138,7 @@ return (
            :<div className='result'>
                   <div className="result-title">
                   <img src={assets.woman} alt="" />
-                    <p> {recentPrompt} </p>
+                    <p> {recentPrompt}</p>
                   </div>
     
                   
@@ -167,7 +158,7 @@ return (
             
          <div className="main-bottom">
         <div className="search-box">
-  <div className="input-wrapper">
+  <div >
   <input
       type="text"
       value={input}
