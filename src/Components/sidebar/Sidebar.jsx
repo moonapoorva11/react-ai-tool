@@ -5,11 +5,17 @@ import { Context } from '../../context/Context.jsx';
 
  const sidebar = () => {
     const [extended,setExtended] = useState(false)
+    const [isOpen, setIsOpen] = useState(false); // for mobile sidebar toggle
     const {prevPrompts, setPrevPrompts, recentPrompt, } = useContext(Context);
-   // const {prevPrompts,recentPrompt,} = useContext(Context);
+   
 
  return (
-    <div className='sidebar'>
+<>
+  {/* Hamburger menu (mobile only) */}
+      <button className="hamburger" onClick={() => setIsOpen(!isOpen)}>
+        <img src={assets.menu} alt="menu" />
+      </button>
+    <div className={`sidebar ${isOpen ? 'active' : ''}`}>
        <div className='top'>
             <img onClick={()=>setExtended(prev=>!prev)} className ='menu' src={assets.menu} alt='' />
             <div className="newchat">
@@ -54,6 +60,7 @@ import { Context } from '../../context/Context.jsx';
             
         </div>
     </div>
+    </>
    
   )
     }

@@ -61,3 +61,45 @@ cursor: pointer;
     padding-right: 10px;
     cursor: pointer;
 }
+
+
+/* Hide sidebar by default on small screens */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* hidden outside viewport */
+    width: 250px;
+    height: 100vh;
+    background-color: #f0f4f9;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  .sidebar.active {
+    left: 0; /* slide in */
+  }
+
+  /* Always show the hamburger menu button */
+  .hamburger {
+    display: block;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
+  }
+
+  .hamburger img {
+    width: 30px;
+  }
+}
+
+/* On larger screens, keep sidebar visible and hide hamburger */
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+}
